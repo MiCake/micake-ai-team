@@ -4,12 +4,30 @@ Reference documentation for AI agents across all technology stacks and patterns.
 
 ## Structure
 
-| Directory | Description | Contents |
+| Directory | Description | Manifest |
 |-----------|-------------|----------|
-| `knowledge/core/` | Core knowledge (always loaded) | `software-principles.md`,etc |
-| `knowledge/patterns/` | Architecture pattern packs | `ddd`, etc |
-| `knowledge/principle/` | Code development principles | `coding-standards.md`, etc. |
-| `knowledge/project/` | Project-specific knowledge | Custom documentation |
+| `core/` | Universal software principles (always loaded) | `core/manifest.yaml` |
+| `patterns/` | Architecture pattern packs | `patterns/{pattern}/manifest.yaml` |
+| `principle/` | Project coding standards (auto-generated) | `principle/manifest.yaml` |
+| `project/` | Project-specific knowledge | `project/manifest.yaml` |
+
+## Knowledge Loading
+
+Knowledge is loaded based on the order defined in `config.yaml`:
+
+```yaml
+knowledge:
+  loading_order:
+    - core/*           # Priority 1: Always load
+    - patterns/{active}/* # Priority 2: Active pattern
+    - principle/*      # Priority 3: Coding standards
+    - project/*        # Priority 4: Project-specific
+```
+
+Each directory contains a `manifest.yaml` that defines:
+- Knowledge pack metadata (id, name, version)
+- Loading behavior (priority, auto_load)
+- File listing and descriptions
 
 ## Knowledge Layers
 
@@ -20,11 +38,11 @@ Universal software engineering principles and practices that apply regardless of
 - `software-principles.md` - SOLID, DRY, KISS, YAGNI
 
 ### Pattern Knowledge
-Architecture-specific patterns, terminology, and best practices. Loaded based on `manifest.yaml` active pattern.
+Architecture-specific patterns, terminology, and best practices. Loaded based on `config.yaml` active pattern.
 
 **Available Patterns:**
-- `ddd/` - Domain-Driven Design patterns
-- `clean-architecture/` - Clean Architecture principles
+- `ddd/` - Domain-Driven Design patterns (see `patterns/ddd/manifest.yaml`)
+- `clean-architecture/` - Clean Architecture principles (see `patterns/clean-architecture/manifest.yaml`)
 
 ### Development Principles
 Coding standards, conventions, and best practices for code quality and maintainability.
@@ -43,9 +61,10 @@ Add your project-specific documentation to `knowledge/project/`:
 ## Usage by Agents
 
 Agents automatically load knowledge based on:
-1. **Always**: Core knowledge
-2. **Based on Config**: Active pattern knowledge
-3. **Based on Skills**: Stack knowledge if required by skills
+1. **Always**: Core knowledge (`core/`)
+2. **Based on Config**: Active pattern knowledge (`patterns/{active}/`)
+3. **As Needed**: Development principles (`principle/`)
+4. **Project-Specific**: Custom project knowledge (`project/`)
 
 ## File Format
 

@@ -12,9 +12,9 @@ Before executing this skill, load the following knowledge files:
 
 | Path | Description | Required |
 |------|-------------|----------|
-| `knowledge/stacks/**` | Project tech stack and testing framework conventions | Yes (if exists) |
-| `knowledge/core/code-quality.md` | Code quality standards | Yes |
+| `knowledge/core/software-principles.md` | Software engineering principles | Yes |
 | `knowledge/patterns/{active}/**` | Active architecture pattern knowledge | Yes |
+| `knowledge/principle/coding-standards.md` | Coding standards (if exists) | Optional |
 
 > Note: `{active}` refers to the active pattern in `config.yaml`
 

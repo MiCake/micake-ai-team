@@ -1,4 +1,3 @@
-````markdown
 # Project Initialization Skill
 
 Initialize project context and perform comprehensive project analysis for AI-assisted development.

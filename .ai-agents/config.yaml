@@ -3,9 +3,7 @@
 # =============================================================================
 # Single entry point for all framework configuration.
 # Consolidates manifest, system config, and preferences.
-# =============================================================================
 
-version: "1.0"
 name: "AI Agent Workflow Framework"
 description: "Multi-agent collaboration framework for software development"
 
@@ -74,43 +72,56 @@ agents:
     name: Conductor
     description: Task coordinator and workflow dispatcher
     required: true
+    skills:
+      - project-initialization
     
   analyst:
     name: Analyst
     description: Requirements analysis and concept extraction
     required: true
+    skills: []
     
   architect:
     name: Architect
     description: System architecture and technical design
     required: true
+    skills: []
     
   developer:
     name: Developer
     description: Code implementation specialist
     required: true
+    skills: []
     
   reviewer:
     name: Reviewer
     description: Code quality and standards reviewer
     required: true
+    skills:
+      - review-execution
     
   tester:
     name: Tester
     description: Test design and quality assurance
     required: true
+    skills:
+      - test-generation
 
 # -----------------------------------------------------------------------------
 # Skill Registry
 # -----------------------------------------------------------------------------
 skills:
   core:
-    - id: review-execution
-      description: Execute code review checklist
-    - id: test-generation
-      description: Generate test cases
     - id: project-initialization
       description: Initialize project and analyze project structure comprehensively
+      agents: [conductor]
+    - id: review-execution
+      description: Execute code review checklist
+      agents: [reviewer]
+    - id: test-generation
+      description: Generate test cases
+      agents: [tester]
+  custom: []
 
 # -----------------------------------------------------------------------------
 # Workflow Registry
@@ -125,6 +136,20 @@ workflows:
     name: Code Review
     description: Review existing code for quality and standards
     phases: [analyze, review, report]
+
+# -----------------------------------------------------------------------------
+# Knowledge Loading
+# -----------------------------------------------------------------------------
+knowledge:
+  # Order to load knowledge (first = highest priority)
+  loading_order:
+    - core/*
+    - patterns/{active}/*
+    - principle/*
+    - project/*
+  # Knowledge paths to load on-demand only
+  lazy_load:
+    - patterns/{inactive}/*
 
 # -----------------------------------------------------------------------------
 # Directory Structure

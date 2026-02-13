@@ -50,4 +50,16 @@ commands:
     description: Switch to a specific agent
     trigger: "#switch {agent}"
 
+  pattern:
+    description: Switch architecture pattern
+    trigger: "#pattern {pattern}"
+
+  recover:
+    description: Recover from error state
+    trigger: "#recover"
+
+  debug:
+    description: Toggle debug mode
+    trigger: "#debug {on|off}"
+
 prompt_file: conductor.prompt.md

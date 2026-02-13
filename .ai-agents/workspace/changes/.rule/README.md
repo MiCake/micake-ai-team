@@ -41,11 +41,27 @@ Rules for maintaining the changes directory.
 
 ## Rule 5: Archive Old Changes
 
-**What**: Move old changes to `_archive/` after 90 days.
+**What**: Move old changes to `_archive/YYYY/` after 90 days.
 
 **Why**: Keeps active directory manageable.
 
-**How**: Manual or automated archival process.
+**How**: 
+1. Identify changes older than 90 days (based on folder date prefix)
+2. Create `_archive/YYYY/` directory if not exists
+3. Move the change folder to archive
+4. Update `CHANGELOG.md` with archive note
+
+**Archive Structure**:
+```
+changes/
+├── _archive/
+│   └── 2025/
+│       └── 20251015-001-initial-setup/
+├── 20260213-001-add-auth/  # Recent, stays in active
+└── CHANGELOG.md
+```
+
+**Preservation**: Always keep `summary.md` accessible for reference.
 
 ---
 

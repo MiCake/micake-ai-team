@@ -1,0 +1,39 @@
+# Development Principles Knowledge Manifest
+
+knowledge:
+  id: principle
+  name: Development Principles
+  version: "1.0"
+  description: Project-specific coding standards and conventions
+
+# Loading behavior
+loading:
+  # Load after core, before project-specific
+  priority: 3
+  auto_load: true
+
+# Files in this knowledge pack (user-generated)
+# These files are created by the project-initialization skill
+files:
+  - id: coding-standards
+    path: coding-standards.md
+    description: Coding standards and conventions for the detected tech stack
+    required: false
+    generated: true
+    
+  - id: review-checklist
+    path: review-checklist.md
+    description: Code review checklist tailored to project standards
+    required: false
+    generated: true
+
+# Usage guidance
+usage:
+  generators:
+    - skill: project-initialization
+      generates: [coding-standards, review-checklist]
+  consumers:
+    - skill: review-execution
+      uses: [coding-standards, review-checklist]
+    - skill: test-generation
+      uses: [coding-standards]

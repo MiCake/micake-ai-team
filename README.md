@@ -18,6 +18,9 @@ This is an AI Agent Framework built on prompt engineering principles. It defines
 |---------|-------------|
 | `#start` | Start a new development workflow |
 | `#status` | Check current workflow status |
+| `#init` | Initialize and analyze project structure |
+| `#pattern {name}` | Switch architecture pattern (ddd, clean-architecture) |
+| `#recover` | Recover from error state |
 | `#analyze` | Analyze requirements |
 | `#design` | Create architecture design |
 | `#implement` | Implement code |
@@ -37,10 +40,7 @@ This is an AI Agent Framework built on prompt engineering principles. It defines
 
 .github/              # GitHub Copilot adapter
 ├── copilot-instructions.md
-└── skills/           # Skill references
-
-.claude/              # Claude Code adapter
-├── AGENTS.md
+├── agents/           # Agent activation files
 └── skills/           # Skill references
 ```
 
@@ -58,7 +58,7 @@ This is an AI Agent Framework built on prompt engineering principles. It defines
 ## Features
 
 - **Role Separation**: Each agent has clear responsibilities and boundaries
-- **Platform Agnostic**: Works with GitHub Copilot and Claude Code
+- **Platform Agnostic**: Works with GitHub Copilot (Claude Code adapter planned)
 - **Dynamic Memory**: Context persists across sessions via `workspace/context.yaml`
 - **Semi-automatic Workflow**: Guided progression with user confirmation
 - **Modular Skills**: Load capabilities on-demand to optimize context usage

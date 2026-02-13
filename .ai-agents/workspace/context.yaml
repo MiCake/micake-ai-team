@@ -21,17 +21,41 @@ project:
 # Workflow State
 # -----------------------------------------------------------------------------
 workflow:
+  # Current workflow ID (e.g., requirement-to-code, code-review)
+  active_workflow: ""
+  
+  # Current phase in the workflow
   current_phase: ""
+  
+  # Last agent that modified context
   last_agent: ""
+  
+  # Timestamp of last update (ISO 8601)
   last_updated: ""
   
-  # Phase completion status
+  # Session lock to prevent concurrent modifications
+  lock:
+    held_by: ""      # Session identifier
+    acquired_at: ""  # ISO 8601 timestamp
+  
+  # Phase completion status (simple boolean tracking)
   phases:
     analyze: false
     design: false
     implement: false
     review: false
     test: false
+  
+  # Phase history for audit and recovery
+  # Records the lifecycle of each phase transition
+  phase_history: []
+  # Example:
+  # - phase: analyze
+  #   agent: analyst
+  #   started_at: "2026-02-12T10:00:00Z"
+  #   completed_at: "2026-02-12T10:30:00Z"
+  #   status: completed  # in-progress | completed | failed | skipped
+  #   notes: "Requirements analyzed successfully"
 
 # -----------------------------------------------------------------------------
 # Requirements Summary
