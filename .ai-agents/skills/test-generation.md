@@ -70,20 +70,20 @@ Automatically detect and use appropriate test framework:
 ## Output Format
 
 ```markdown
-## 测试设计
+## Test Cases
 
-### 测试用例
-| ID | 场景 | 类型 | 输入 | 预期结果 |
-|----|------|------|------|----------|
+### Test Scenarios
+| ID | Scenario | Type | Input | Expected |
+|----|---------|------|------|----------|
 | T1 | [Scenario] | [Unit/Integration] | [Input] | [Expected] |
 
-### 测试代码
+### Test Code
 
 \`\`\`{language}
 // Test implementation
 \`\`\`
 
-### 覆盖率
-- 已覆盖: [List]
-- 建议补充: [List]
+### Coverage
+- Covered: [List]
+- Suggested Additions: [List]
 ```

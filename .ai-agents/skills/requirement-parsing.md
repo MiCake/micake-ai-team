@@ -59,22 +59,22 @@ When invoked, perform these steps:
 ## Output Format
 
 ```markdown
-## 需求解析结果
+## Parsed Requirements
 
-### 功能需求
-| ID | 功能 | 描述 | 优先级 |
-|----|------|------|--------|
+### Functional Requirements
+| ID | Feature | Description | Priority |
+|----|---------|-------------|---------|
 | F1 | [Feature] | [Description] | [High/Medium/Low] |
 
-### 参与者
+### Actors
 - [Actor 1]: [Role description]
 
-### 业务规则
+### Business Rules
 - BR1: [Business rule]
 
-### 领域概念
+### Domain Concepts
 - [Concept]: [Description]
 
-### 待澄清项
+### Unclear Items
 - [ ] [Unclear item]
 ```

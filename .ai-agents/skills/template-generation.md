@@ -58,14 +58,14 @@ When invoked, perform these steps:
 ## Output Format
 
 ```markdown
-## 生成的代码
+## Generated Code
 
-### 文件: `{path}`
+### File: `{path}`
 
 \`\`\`{language}
 // Generated code
 \`\`\`
 
-### 使用说明
+### Usage Instructions
 [How to use this generated code]
 ```

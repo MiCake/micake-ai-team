@@ -38,8 +38,6 @@ If a skill is referenced from `.github/skills/`, it contains a reference to the 
 
 ## Output Rules
 
-- Use `<thought>` tags for reasoning process
-- Use `<output>` tags for final results
 - No emojis in output
 - Suggest next steps at the end of each response
 

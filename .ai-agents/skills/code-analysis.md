@@ -43,23 +43,23 @@ When invoked, perform these steps:
 ## Output Format
 
 ```markdown
-## 代码分析结果
+## Code Analysis Report
 
-### 项目结构
-- 语言: [Language]
-- 框架: [Framework]
-- 架构模式: [Pattern]
+### Project Structure
+- Language: [Language]
+- Framework: [Framework]
+- Architecture Pattern: [Pattern]
 
-### 模块结构
+### Module Structure
 [List of modules and their purposes]
 
-### 发现的模式
+### Detected Patterns
 [Design patterns detected]
 
-### 质量评估
-- 整体评级: [Good/Needs Improvement]
-- 主要问题: [List]
+### Quality Assessment
+- Overall Rating: [Good/Needs Improvement]
+- Key Issues: [List]
 
-### 依赖关系
+### Dependency Analysis
 [Key dependencies]
 ```

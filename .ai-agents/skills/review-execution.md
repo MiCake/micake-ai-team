@@ -65,18 +65,18 @@ When invoked, perform these steps:
 ## Output Format
 
 ```markdown
-## 审查结果
+## Review Report
 
-### 检查清单
-| 项目 | 状态 | 备注 |
+### Review Checklist
+| Item | Status | Note |
 |------|------|------|
 | [Item] | ✅/❌ | [Note] |
 
-### 问题清单
-| 严重度 | 位置 | 问题 | 建议 |
+### Issue List
+| Severity | Location | Issue | Suggestion |
 |--------|------|------|------|
 | 🔴/🟡/🟢 | [Location] | [Issue] | [Suggestion] |
 
-### 总结
+### Summary
 [Overall assessment and key recommendations]
 ```
