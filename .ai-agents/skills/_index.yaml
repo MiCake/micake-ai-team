@@ -29,6 +29,12 @@ core_skills:
     invoked_by: tester
     trigger: "#test"
     summary: Generate test cases and test code based on requirements and implementation
+    
+  - id: frontend-doc-generation
+    file: frontend-doc-generation.md
+    invoked_by: developer
+    trigger: "#frontend-doc"
+    summary: Generate frontend development documentation based on backend API design
 
 # System Skills (auto-invoked)
 system_skills:

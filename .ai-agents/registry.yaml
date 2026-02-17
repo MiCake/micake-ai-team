@@ -71,7 +71,7 @@ quick_index:
       file: agents/developer.yaml
       prompt: agents/developer.prompt.md
       description: Code implementation specialist
-      entry_commands: ["#implement", "#fix", "#refactor"]
+      entry_commands: ["#implement", "#fix", "#refactor", "#frontend-doc"]
       
     - id: reviewer
       file: agents/reviewer.yaml
@@ -102,6 +102,11 @@ quick_index:
         file: skills/test-generation.md
         agents: [tester]
         trigger: "#test"
+        
+      - id: frontend-doc-generation
+        file: skills/frontend-doc-generation.md
+        agents: [developer]
+        trigger: "#frontend-doc"
         
     system:
       - id: context-loader
@@ -197,6 +202,7 @@ context_graph:
       - workspace/context/architecture.yaml
     outputs:
       - workspace/artifacts/{change-id}/implementation/
+      - workspace/artifacts/{change-id}/frontend-api-doc.md
       
   reviewer:
     requires:

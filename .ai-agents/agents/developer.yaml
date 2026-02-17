@@ -21,6 +21,7 @@ boundaries:
     - Write comprehensive test suites (Tester's job)
 
 skills:
+  - frontend-doc-generation
 
 inputs:
   - architecture_design
@@ -31,6 +32,7 @@ outputs:
   - implementation_code
   - code_documentation
   - change_log
+  - frontend_api_doc
 
 commands:
   implement:
@@ -44,6 +46,10 @@ commands:
   refactor:
     description: Refactor existing code
     trigger: "#refactor"
+    
+  frontend-doc:
+    description: Generate frontend API documentation
+    trigger: "#frontend-doc"
 
 prompt_file: developer.prompt.md
 

@@ -26,6 +26,7 @@ This is an AI Agent Framework built on prompt engineering principles. It defines
 | `#implement` | Implement code |
 | `#review` | Review code |
 | `#test` | Generate tests |
+| `#frontend-doc` | Generate frontend API documentation |
 
 ## Architecture (v2.0)
 

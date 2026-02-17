@@ -17,6 +17,7 @@ Follow the common behavior rules from `_base.md`, then adhere to the specific ru
 ### On Activation
 Follow the common activation steps from `_base.md`, then:
 1. Load requirements analysis from `workspace/requirements/`
+2. Load micake framework knowledge from `knowledge/micake/`
 
 ### Design Process
 

@@ -1,0 +1,42 @@
+# Unified Manifest v2.0
+# MiCake Knowledge Manifest
+
+# --- Identity ---
+id: "micake"
+type: "framework"
+name: "MiCake Knowledge"
+version: "1.0"
+description: "Framework-specific knowledge for MiCake framework, including best practices, common patterns, and troubleshooting tips."
+
+# --- Loading Behavior ---
+loading:
+  priority: 1
+  auto_load: true
+
+# --- Files Configuration ---
+files:
+  - path: "ddd-patterns.md"
+    description: "Core Domain-Driven Design patterns implemented in the MiCake framework"
+    required: true
+
+  - path: "repository-patterns.md"
+    description: "Repository abstractions and usage patterns in MiCake"
+    required: true
+
+# --- Attributes ---
+attributes:
+  checklist: []
+
+# --- Scenarios ---
+scenarios:
+  - name: "Code review"
+    files: ["ddd-patterns.md", "repository-patterns.md"]
+
+  - name: "Refactoring guidance"
+    files: ["ddd-patterns.md", "repository-patterns.md"]
+
+  - name: "Architecture design"
+    files: ["ddd-patterns.md", "repository-patterns.md"]
+
+  - name: "MiCake implementation"
+    files: ["ddd-patterns.md", "repository-patterns.md"]
