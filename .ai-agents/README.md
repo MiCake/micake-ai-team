@@ -1,56 +1,104 @@
-# AI Agent Framework
+# AI Agent Framework (v2.0)
 
 Multi-agent collaboration framework for software development.
+
+## Quick Start
+
+1. **Resource Discovery**: Read `registry.yaml` for quick access to all resources
+2. **Agent Activation**: Each agent's `context_contract` defines required context
+3. **Workflow**: Use `#start` to begin, `#status` to check progress
 
 ## Directory Structure
 
 ```
 .ai-agents/
-├── config.yaml           # Unified configuration
-├── config.schema.json    # JSON Schema for validation
-├── SECURITY.md           # Security and governance
+├── registry.yaml         # Unified resource index (preferred entry point)
+├── config.yaml           # System configuration
 ├── agents/               # Agent definitions
-│   ├── _base.md          # Common agent behavior
-│   ├── _templates/       # Agent scaffolding templates
-│   ├── {agent}.yaml      # Declaration (roles, skills, commands)
-│   └── {agent}.prompt.md # Behavior prompts
+│   ├── _index.yaml       # Directory index
+│   ├── _base.md          # Shared behavior rules
+│   ├── {agent}.yaml      # Declaration (role, skills, context_contract)
+│   └── {agent}.prompt.md # Behavior prompt
 ├── skills/               # Modular capabilities
-│   └── {skill}.md        # Skill definitions
-├── workflows/            # Workflow state machines
-│   └── {workflow}.yaml   # Workflow definitions
+│   ├── _index.yaml       # Directory index
+│   ├── _system/          # System skills (auto-invoked)
+│   │   ├── context-loader.md    # Smart context loading
+│   │   └── archive-manager.md   # Archive management
+│   └── {skill}.md        # Skill definition
+├── workflows/            # Workflow definitions
+│   ├── _index.yaml       # Directory index
+│   └── {workflow}.yaml   # Workflow state machine
 ├── knowledge/            # Domain knowledge
-│   ├── core/             # Core principles (with manifest.yaml)
-│   ├── patterns/         # Architecture patterns (with manifest.yaml)
-│   ├── principle/        # Project coding standards
+│   ├── _index.yaml       # Directory index
+│   ├── core/             # Core principles (always loaded)
+│   ├── patterns/         # Architecture patterns (on-demand)
+│   │   ├── ddd/          # Domain-Driven Design
+│   │   └── clean-architecture/  # Clean Architecture
+│   ├── principle/        # Project coding standards (generated)
 │   └── project/          # Project-specific knowledge
-└── workspace/            # Project working area
-    ├── context.yaml      # Dynamic memory with state history
+└── workspace/            # Project workspace
+    ├── _index.yaml       # Directory index
+    ├── state/            # Hot data: current session
+    │   ├── session.yaml       # Session state
+    │   ├── active-change.yaml # Current change
+    │   └── knowledge-cache.yaml # Knowledge cache
+    ├── context/          # Warm data: project context
+    │   ├── project.yaml       # Project info
+    │   ├── architecture.yaml  # Architecture decisions
+    │   ├── requirements.yaml  # Requirements summary
+    │   └── decisions.yaml     # Key decisions
+    ├── history/          # Cold data: historical archive
+    │   ├── phases/       # Phase history
+    │   └── changes/      # Change history
     ├── requirements/     # Requirements documents
-    └── changes/          # Change tracking (90-day retention)
+    └── artifacts/        # Work artifacts (grouped by change)
 ```
 
-## Configuration
+## Key Concepts (v2.0)
 
-All configuration is centralized in `config.yaml` (validated by `config.schema.json`):
+### Unified Resource Registry
 
-- **system**: Behavior settings (language, interaction mode, debug mode)
-- **output**: Output formatting rules
-- **pattern**: Active architecture pattern (DDD, Clean Architecture, etc.)
-- **agents**: Registered agents with their skills
-- **skills**: Available skills with agent assignments
-- **workflows**: Defined workflows
-- **knowledge**: Knowledge loading order and lazy-load rules
+`registry.yaml` provides unified index for all resources:
+- `quick_index`: Quick index preferred for LLM access
+- `context_graph`: Context dependencies between Agents
+- `discovery_protocol`: Resource discovery protocol
+
+### Context Contract
+
+Each Agent defines its context contract in its yaml file:
+```yaml
+context_contract:
+  required:      # 必须加载
+  conditional:   # 条件加载
+  outputs:       # 输出目标
+```
+
+### Data Tiering
+
+Workspace uses tiered storage strategy:
+- **Hot (state/)**: Current session, <50KB
+- **Warm (context/)**: Project context, <100KB  
+- **Cold (history/)**: Historical archive, read index only
+
+### Knowledge Loading Levels
+
+| Level | When to Use | Tokens |
+|-------|-------------|--------|
+| 1 | Get overview | ~200 |
+| 2 | Specific tasks (via semantic_index) | ~500-1500 |
+| 3 | Full knowledge needed | ~3000-5000 |
 
 ## Agents
 
 Each agent has two files plus a common base:
 
-1. **`_base.md`**: Common activation steps and behavior rules
+1. **`_base.md`**: Common activation steps (v2.0) and behavior rules
 2. **`{agent}.yaml`**: Declarative definition
    - ID, name, responsibilities
    - Boundaries (what the agent does NOT do)
    - Skills it can use
    - Commands it responds to
+   - **context_contract**: Required/conditional context
 
 3. **`{agent}.prompt.md`**: Behavior prompt
    - Persona and communication style
@@ -59,12 +107,19 @@ Each agent has two files plus a common base:
    - Boundary enforcement with examples
    - Output formats
 
-## Skills
+## System Skills
+
+System skills are auto-invoked by the framework:
+
+- **context-loader**: Smart context loading on agent activation
+- **archive-manager**: History archiving and compression
+
+## Core Skills
 
 Skills are modular capabilities loaded on-demand:
+- `project-initialization.md` - Initialize project and analyze structure
 - `review-execution.md` - Execute review checklists
 - `test-generation.md` - Generate test cases
-- `project-initialization.md` - Initialize project and analyze structure
 
 ## Workflows
 
@@ -76,23 +131,30 @@ Workflows define phase transitions:
 - **code-review**: Code quality review
   - analyze → review → report
 
-## Dynamic Memory
+## Dynamic Memory (v2.0)
 
-`workspace/context.yaml` stores:
+Memory is now split across multiple files in `workspace/`:
 
-- Project information
-- Current workflow state with phase history
-- Session lock for concurrent access control
-- Requirements summary
-- Architecture decisions
-- Implementation progress
+### State (Hot Data)
+- `state/session.yaml`: Current session and workflow state
+- `state/active-change.yaml`: Current change in progress
+- `state/knowledge-cache.yaml`: Loaded knowledge cache
+
+### Context (Warm Data)
+- `context/project.yaml`: Project information
+- `context/architecture.yaml`: Architecture decisions
+- `context/requirements.yaml`: Requirements summary
+- `context/decisions.yaml`: Key decisions log
+
+### History (Cold Data)
+- `history/phases/`: Phase execution history
+- `history/changes/`: Completed changes archive
 
 **Rules**:
 - Confirm with user before saving
 - Keep information concise
-- Update incrementally
-- Record phase transitions with timestamps
-- See `SECURITY.md` for permissions and retention
+- Hot data: <50KB, Warm data: <100KB
+- Archive cold data after 7-30 days
 
 ## Usage
 

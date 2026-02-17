@@ -1,20 +1,35 @@
+# Unified Manifest v2.0
 # Core Knowledge Manifest
 
-knowledge:
-  id: core
-  name: Core Knowledge
-  version: "1.0"
-  description: Universal software engineering principles that apply to all projects
+# --- Identity ---
+id: "core"
+type: "core"
+name: "Core Knowledge"
+version: "1.0"
+description: "Universal software engineering principles that apply to all projects"
 
-# Loading behavior
+# --- Loading Behavior ---
 loading:
-  # Always load this knowledge
   priority: 1
   auto_load: true
 
-# Files in this knowledge pack
+# --- Files Configuration ---
 files:
-  - id: software-principles
-    path: software-principles.md
-    description: SOLID, DRY, KISS, YAGNI and other fundamental principles
+  - path: "software-principles.md"
+    description: "SOLID, DRY, KISS, YAGNI and other fundamental principles"
     required: true
+
+# --- Attributes ---
+attributes:
+  checklist: [] 
+
+# --- Scenarios ---
+scenarios:
+  - name: "Code review"
+    files: ["software-principles.md"]
+    
+  - name: "Refactoring guidance"
+    files: ["software-principles.md"]
+    
+  - name: "Architecture design"
+    files: ["software-principles.md"]

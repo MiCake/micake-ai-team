@@ -1,0 +1,21 @@
+# =============================================================================
+# Workflows Directory Index
+# =============================================================================
+directory:
+  name: workflows
+  purpose: Workflow state machine definitions
+
+discovery:
+  pattern: "*.yaml"
+
+# Workflow List
+contents:
+  - id: requirement-to-code
+    file: requirement-to-code.yaml
+    phases: [analyze, design, implement, review, test]
+    summary: Complete development cycle from PRD to tested implementation
+    
+  - id: code-review
+    file: code-review.yaml
+    phases: [analyze, review, report]
+    summary: Review existing code for quality and standards compliance

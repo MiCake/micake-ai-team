@@ -1,47 +1,74 @@
+# Unified Manifest v2.0
 # DDD Pattern Pack
 
-pattern:
-  id: "ddd"
-  name: "Domain-Driven Design"
-  version: "1.0"
-  description: "Tactical and strategic patterns for complex domain modeling"
+# --- Identity ---
+id: "ddd"
+type: "pattern"
+name: "Domain-Driven Design"
+version: "1.0"
+description: "Tactical and strategic patterns for complex domain modeling"
 
-# Terminology used in this pattern
-terminology:
-  # Core building blocks
-  aggregate: "Aggregate"
-  aggregate_root: "Aggregate Root"
-  entity: "Entity"
-  value_object: "Value Object"
-  domain_event: "Domain Event"
-  domain_service: "Domain Service"
-  repository: "Repository"
-  factory: "Factory"
-  
-  # Strategic patterns
-  bounded_context: "Bounded Context"
-  ubiquitous_language: "Ubiquitous Language"
-  context_map: "Context Map"
-  
-  # Relationships
-  anti_corruption_layer: "Anti-Corruption Layer"
-  shared_kernel: "Shared Kernel"
-  customer_supplier: "Customer-Supplier"
+# --- Loading Behavior ---
+loading:
+  priority: 10
+  auto_load: false
 
-# Files in this pattern pack
+# --- Files Configuration ---
 files:
-  - overview.md
-  - tactical-patterns.md
-  - strategic-patterns.md
-  - review-checklist.md
+  - path: "overview.md"
+    description: "Overview of DDD concepts"
+    required: true
 
-# Design checklist specific to DDD
-review_checklist:
-  - "Aggregate boundaries protect invariants"
-  - "Entities have identity and lifecycle"
-  - "Value objects are immutable"
-  - "Domain events capture state changes"
-  - "Repositories only for aggregates"
-  - "No anemic domain models"
-  - "Business logic in domain layer"
-  - "Ubiquitous language used consistently"
+  - path: "tactical-patterns.md"
+    description: "Tactical patterns like Entities, Value Objects, Aggregates"
+    required: true
+
+  - path: "strategic-patterns.md"
+    description: "Strategic patterns like Bounded Contexts"
+    required: true
+
+  - path: "review-checklist.md"
+    description: "Checklist for reviewing DDD code"
+    required: false
+
+# --- Attributes ---
+attributes:
+  terminology:
+    aggregate: "Aggregate"
+    aggregate_root: "Aggregate Root"
+    entity: "Entity"
+    value_object: "Value Object"
+    domain_event: "Domain Event"
+    domain_service: "Domain Service"
+    repository: "Repository"
+    factory: "Factory"
+    bounded_context: "Bounded Context"
+    ubiquitous_language: "Ubiquitous Language"
+    context_map: "Context Map"
+    anti_corruption_layer: "Anti-Corruption Layer"
+    shared_kernel: "Shared Kernel"
+    customer_supplier: "Customer-Supplier"
+
+  checklist:
+    - "Aggregate boundaries protect invariants"
+    - "Entities have identity and lifecycle"
+    - "Value objects are immutable"
+    - "Domain events capture state changes"
+    - "Repositories only for aggregates"
+    - "No anemic domain models"
+    - "Business logic in domain layer"
+    - "Ubiquitous language used consistently"
+
+# --- Scenarios ---
+scenarios:
+  - name: "Design domain model"
+    files: ["overview.md", "tactical-patterns.md"]
+    
+  - name: "Code review"
+    files: ["review-checklist.md"]
+    
+  - name: "Understand DDD concepts"
+    files: ["overview.md"]
+    
+  - name: "Event-driven design"
+    files: ["tactical-patterns.md"]

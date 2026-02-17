@@ -46,3 +46,28 @@ commands:
     trigger: "#refactor"
 
 prompt_file: developer.prompt.md
+
+# -----------------------------------------------------------------------------
+# Context Contract
+# -----------------------------------------------------------------------------
+context_contract:
+  required:
+    - source: knowledge/core/
+      reason: "Core software engineering principles"
+      
+    - source: knowledge/patterns/{active}/
+      reason: "Active architecture pattern"
+      
+    - source: workspace/context/architecture.yaml
+      reason: "Architecture design"
+      
+  conditional:
+    - source: knowledge/principle/coding-standards.md
+      condition: "When coding standards exist"
+      
+    - source: workspace/artifacts/{change-id}/design.md
+      condition: "When detailed design document exists"
+      
+  outputs:
+    - target: workspace/artifacts/{change-id}/implementation/
+      format: code

@@ -1,3 +1,19 @@
+---
+id: review-execution
+name: Review Execution
+description: Execute code review against checklists and standards
+invoked_by: reviewer
+triggers:
+  - "#review"
+dependencies:
+  - knowledge/core/*
+  - knowledge/principle/review-checklist.md
+  - knowledge/principle/coding-standards.md
+  - knowledge/patterns/{active}/review-checklist.md
+outputs:
+  - review-report (inline)
+---
+
 # Review Execution Skill
 
 Execute code review against checklists and standards.

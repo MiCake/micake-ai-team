@@ -1,0 +1,51 @@
+# Architecture Patterns Index
+# Summary manifest for all available architecture patterns.
+# Each pattern has its own subdirectory with detailed manifest.yaml.
+
+patterns:
+  id: patterns
+  name: Architecture Patterns
+  version: "1.0"
+  description: Collection of architecture patterns for software design
+
+# Loading behavior
+loading:
+  # Load only the active pattern (from config.yaml → pattern.active)
+  priority: 2
+  auto_load: false
+  load_rule: "Load patterns/{active}/* based on config.yaml pattern.active"
+
+# Available patterns
+available:
+  - id: ddd
+    name: Domain-Driven Design
+    path: ddd/
+    manifest: ddd/manifest.yaml
+    description: Tactical and strategic patterns for complex domain modeling
+    files:
+      - overview.md
+      - tactical-patterns.md
+      - review-checklist.md
+      
+  - id: clean-architecture
+    name: Clean Architecture
+    path: clean-architecture/
+    manifest: clean-architecture/manifest.yaml
+    description: Dependency inversion and layer separation patterns
+    files:
+      - overview.md
+      - review-checklist.md
+
+# Discovery guidance
+discovery:
+  description: |
+    To discover available patterns:
+    1. List subdirectories of knowledge/patterns/
+    2. Each subdirectory is a pattern pack
+    3. Read {pattern}/manifest.yaml for pattern details
+  
+  to_add_pattern: |
+    1. Create knowledge/patterns/{pattern}/ directory
+    2. Add manifest.yaml with pattern metadata
+    3. Add pattern documentation files
+    4. Register in config.yaml under pattern.available

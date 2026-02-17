@@ -1,0 +1,27 @@
+# =============================================================================
+# Knowledge Cache
+# =============================================================================
+# Session-level cache of loaded knowledge to avoid redundant reads
+# =============================================================================
+
+cache:
+  session_id: ""
+  created_at: ""
+  
+loaded:
+  # Example:
+  # - pack: core
+  #   level: 3  # full
+  #   files_loaded: [software-principles.md]
+  #
+  # - pack: patterns/ddd
+  #   level: 2  # targeted
+  #   fragments_loaded:
+  #     - file: tactical-patterns.md
+  #       sections: [entity, aggregate]
+
+pending_load:
+  # Knowledge that may be needed next
+  # - pack: patterns/ddd
+  #   sections: [value_objects]
+  #   reason: "May be needed next"

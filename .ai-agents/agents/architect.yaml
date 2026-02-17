@@ -41,3 +41,28 @@ commands:
     trigger: "#plan"
 
 prompt_file: architect.prompt.md
+
+# -----------------------------------------------------------------------------
+# Context Contract
+# -----------------------------------------------------------------------------
+context_contract:
+  required:
+    - source: knowledge/core/
+      reason: "Core software engineering principles"
+      
+    - source: knowledge/patterns/{active}/
+      reason: "Active architecture pattern"
+      
+    - source: workspace/context/requirements.yaml
+      reason: "Requirements analysis results"
+      
+  conditional:
+    - source: workspace/context/architecture.yaml
+      condition: "When historical architecture decisions exist"
+      
+  outputs:
+    - target: workspace/context/architecture.yaml
+      format: yaml
+      
+    - target: workspace/artifacts/{change-id}/design.md
+      format: markdown

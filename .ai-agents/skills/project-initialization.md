@@ -1,3 +1,18 @@
+---
+id: project-initialization
+name: Project Initialization
+description: Initialize project context and perform comprehensive project analysis
+invoked_by: conductor
+triggers:
+  - "#init"
+dependencies: []
+outputs:
+  - knowledge/principle/coding-standards.md
+  - knowledge/principle/review-checklist.md
+  - knowledge/project/tech-stack.md
+  - workspace/context.yaml
+---
+
 # Project Initialization Skill
 
 Initialize project context and perform comprehensive project analysis for AI-assisted development.

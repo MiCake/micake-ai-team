@@ -1,0 +1,17 @@
+# =============================================================================
+# System Skills - Directory Index
+# =============================================================================
+directory:
+  name: _system
+  purpose: System-level skills, auto-invoked
+
+skills:
+  - id: context-loader
+    file: context-loader.md
+    auto_invoke: on_activation
+    summary: Smart context loader
+    
+  - id: archive-manager
+    file: archive-manager.md
+    triggers: [on_session_end, on_change_complete, daily]
+    summary: Archive manager

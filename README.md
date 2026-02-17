@@ -27,16 +27,23 @@ This is an AI Agent Framework built on prompt engineering principles. It defines
 | `#review` | Review code |
 | `#test` | Generate tests |
 
-## Architecture
+## Architecture (v2.0)
 
 ```
 .ai-agents/           # Core framework (platform-agnostic)
-├── config.yaml       # Unified configuration
+├── registry.yaml     # Unified resource index (LLM preferred entry)
+├── config.yaml       # System configuration
 ├── agents/           # Agent definitions (.yaml + .prompt.md)
+│   └── _base.md      # Shared activation steps (v2.0)
 ├── skills/           # Modular skills
+│   └── _system/      # System skills (auto-invoked)
 ├── workflows/        # Workflow definitions
-├── knowledge/        # Domain knowledge
-└── workspace/        # Project context and memory
+├── knowledge/        # Domain knowledge (with semantic index)
+└── workspace/        # Project workspace
+    ├── state/        # Hot data (current session)
+    ├── context/      # Warm data (project context)
+    ├── history/      # Cold data (historical archive)
+    └── artifacts/    # Work artifacts
 
 .github/              # GitHub Copilot adapter
 ├── copilot-instructions.md
@@ -59,7 +66,10 @@ This is an AI Agent Framework built on prompt engineering principles. It defines
 
 - **Role Separation**: Each agent has clear responsibilities and boundaries
 - **Platform Agnostic**: Works with GitHub Copilot (Claude Code adapter planned)
-- **Dynamic Memory**: Context persists across sessions via `workspace/context.yaml`
+- **Unified Resource Registry**: `registry.yaml` provides quick access to all resources
+- **Context Contract**: Each agent declares required/conditional context
+- **Data Tiering**: Hot/warm/cold storage strategy for efficient memory management
+- **Semantic Knowledge Index**: Load only relevant knowledge sections
 - **Semi-automatic Workflow**: Guided progression with user confirmation
 - **Modular Skills**: Load capabilities on-demand to optimize context usage
 - **Language Agnostic**: Supports any programming language

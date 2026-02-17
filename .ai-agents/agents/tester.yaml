@@ -40,3 +40,25 @@ commands:
 
 
 prompt_file: tester.prompt.md
+
+# -----------------------------------------------------------------------------
+# Context Contract
+# -----------------------------------------------------------------------------
+context_contract:
+  required:
+    - source: knowledge/core/
+      reason: "Core software engineering principles"
+      
+    - source: workspace/context/requirements.yaml
+      reason: "Requirements analysis for test case design"
+      
+  conditional:
+    - source: knowledge/patterns/{active}/
+      condition: "When understanding architecture pattern is needed"
+      
+    - source: workspace/artifacts/{change-id}/implementation/
+      condition: "When implementation code exists"
+      
+  outputs:
+    - target: workspace/artifacts/{change-id}/tests/
+      format: code

@@ -1,0 +1,19 @@
+# =============================================================================
+# Session State
+# =============================================================================
+# Real-time state of current session and workflow
+# =============================================================================
+
+session:
+  id: ""
+  started_at: ""
+  last_agent: ""
+  debug_mode: false
+
+workflow:
+  active_workflow: ""
+  current_phase: ""
+  
+lock:
+  held_by: ""
+  acquired_at: ""

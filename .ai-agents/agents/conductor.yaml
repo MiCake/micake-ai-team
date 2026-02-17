@@ -63,3 +63,25 @@ commands:
     trigger: "#debug {on|off}"
 
 prompt_file: conductor.prompt.md
+
+# -----------------------------------------------------------------------------
+# Context Contract
+# -----------------------------------------------------------------------------
+context_contract:
+  required:
+    - source: knowledge/core/
+      reason: "Core software engineering principles"
+      
+    - source: workspace/state/session.yaml
+      reason: "Current session state"
+      
+    - source: workspace/context/project.yaml
+      reason: "Project basic information"
+      
+  conditional:
+    - source: workspace/state/active-change.yaml
+      condition: "When there is a change in progress"
+      
+  outputs:
+    - target: workspace/state/session.yaml
+      format: yaml

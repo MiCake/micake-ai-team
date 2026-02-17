@@ -1,0 +1,22 @@
+# =============================================================================
+# Active Change
+# =============================================================================
+# Details of the current change in progress
+# =============================================================================
+
+change:
+  id: ""
+  title: ""
+  status: ""  # not-started | in-progress | completed
+  created_at: ""
+
+progress:
+  completed_phases: []
+  current_phase: ""
+  
+artifacts:
+  analysis: ""
+  design: ""
+  implementation: ""
+  review: ""
+  tests: ""

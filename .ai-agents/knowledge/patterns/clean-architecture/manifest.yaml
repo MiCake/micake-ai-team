@@ -1,43 +1,64 @@
+# Unified Manifest v2.0
 # Clean Architecture Pattern Pack
 
-pattern:
-  id: "clean-architecture"
-  name: "Clean Architecture"
-  version: "1.0"
-  description: "Robert C. Martin's Clean Architecture for testable, maintainable systems"
+# --- Identity ---
+id: "clean-architecture"
+type: "pattern"
+name: "Clean Architecture"
+version: "1.0"
+description: "Robert C. Martin's Clean Architecture for testable, maintainable systems"
 
-# Terminology used in this pattern
-terminology:
-  # Core concepts
-  entity: "Entity"
-  use_case: "Use Case"
-  interface_adapter: "Interface Adapter"
-  framework: "Framework"
-  
-  # Boundaries
-  boundary: "Boundary"
-  presenter: "Presenter"
-  controller: "Controller"
-  gateway: "Gateway"
-  
-  # Data flow
-  request_model: "Request Model"
-  response_model: "Response Model"
-  view_model: "View Model"
+# --- Loading Behavior ---
+loading:
+  priority: 10
+  auto_load: false
 
-# Files in this pattern pack
+# --- Files Configuration ---
 files:
-  - overview.md
-  - layer-rules.md
-  - review-checklist.md
+  - path: "overview.md"
+    description: "Overview of Clean Architecture layers and dependency rules"
+    required: true
 
-# Design checklist specific to Clean Architecture
-review_checklist:
-  - "Dependencies point inward"
-  - "Entities are pure business objects"
-  - "Use Cases contain application logic"
-  - "Interfaces defined by inner layer"
-  - "Frameworks are details"
-  - "Database is a detail"
-  - "UI is a detail"
-  - "Testable without external dependencies"
+  - path: "layer-rules.md"
+    description: "Detailed rules for each layer"
+    required: true
+
+  - path: "review-checklist.md"
+    description: "Checklist for reviewing code against Clean Architecture"
+    required: false
+
+# --- Attributes ---
+attributes:
+  terminology:
+    entity: "Entity"
+    use_case: "Use Case"
+    interface_adapter: "Interface Adapter"
+    framework: "Framework"
+    boundary: "Boundary"
+    presenter: "Presenter"
+    controller: "Controller"
+    gateway: "Gateway"
+    request_model: "Request Model"
+    response_model: "Response Model"
+    view_model: "View Model"
+
+  checklist:
+    - "Dependencies point inward"
+    - "Entities are pure business objects"
+    - "Use Cases contain application logic"
+    - "Interfaces defined by inner layer"
+    - "Frameworks are details"
+    - "Database is a detail"
+    - "UI is a detail"
+    - "Testable without external dependencies"
+
+# --- Scenarios ---
+scenarios:
+  - name: "Design application architecture"
+    files: ["overview.md"]
+    
+  - name: "Code review"
+    files: ["review-checklist.md"]
+    
+  - name: "Understand layer separation"
+    files: ["overview.md"]

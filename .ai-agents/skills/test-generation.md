@@ -1,3 +1,19 @@
+---
+id: test-generation
+name: Test Generation
+description: Generate test cases and test code based on requirements and implementation
+invoked_by: tester
+triggers:
+  - "#test"
+dependencies:
+  - knowledge/core/software-principles.md
+  - knowledge/patterns/{active}/**
+  - knowledge/principle/coding-standards.md
+outputs:
+  - test-cases (inline)
+  - test-code (files)
+---
+
 # Test Generation Skill
 
 Generate test cases and test code based on requirements and implementation.

@@ -1,37 +1,40 @@
+# Unified Manifest v2.0
 # Project Knowledge Manifest
 
-knowledge:
-  id: project
-  name: Project Knowledge
-  version: "1.0"
-  description: Custom knowledge specific to this project
+# --- Identity ---
+id: "project"
+type: "project"
+name: "Project Knowledge"
+version: "1.0"
+description: "Custom knowledge specific to this project"
 
-# Loading behavior
+# --- Loading Behavior ---
 loading:
-  # Load last (lowest priority, most specific)
   priority: 4
+  # Load last (lowest priority, most specific)
   auto_load: true
 
-# Files in this knowledge pack (user-created)
+# --- Files Configuration ---
 # Add your project-specific knowledge files here
 files: []
   # Example:
-  # - id: glossary
-  #   path: glossary.md
-  #   description: Business domain terminology
+  # - path: "glossary.md"
+  #   description: "Business domain terminology"
   #   required: false
   #
-  # - id: architecture-decisions
-  #   path: architecture-decisions.md
-  #   description: Project ADRs (Architecture Decision Records)
+  # - path: "architecture-decisions.md"
+  #   description: "Project ADRs (Architecture Decision Records)"
   #   required: false
 
-# Usage guidance
-usage:
-  description: |
+# --- Attributes ---
+attributes:
+  usage_guide: |
     Add project-specific knowledge files to this directory.
     Common files include:
     - glossary.md - Business domain terminology
     - architecture-decisions.md - Project ADRs
     - conventions.md - Project-specific conventions
     - integrations.md - External system integration notes
+
+# --- Scenarios ---
+scenarios: []

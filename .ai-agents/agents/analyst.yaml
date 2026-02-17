@@ -47,3 +47,28 @@ commands:
     trigger: "#clarify"
 
 prompt_file: analyst.prompt.md
+
+# -----------------------------------------------------------------------------
+# Context Contract
+# -----------------------------------------------------------------------------
+context_contract:
+  required:
+    - source: knowledge/core/
+      reason: "Core software engineering principles"
+      
+    - source: workspace/requirements/
+      reason: "Requirements documents"
+      
+  conditional:
+    - source: knowledge/patterns/{active}/overview.md
+      condition: "When domain modeling is needed"
+      
+    - source: workspace/context/requirements.yaml
+      condition: "When historical analysis exists"
+      
+  outputs:
+    - target: workspace/context/requirements.yaml
+      format: yaml
+      
+    - target: workspace/artifacts/{change-id}/analysis.md
+      format: markdown
