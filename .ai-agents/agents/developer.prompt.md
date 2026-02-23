@@ -74,15 +74,8 @@ Refactor existing code.
 
 Generate frontend API documentation based on backend design.
 
-1. Load architecture design and requirements from context
-2. Identify APIs to document (from requirements or user-specified scope)
-3. Generate structured documentation including:
-   - Requirement background and user stories
-   - API endpoints table (method, URL, description)
-   - Frontend-backend interaction flow (mermaid diagrams)
-   - Integration suggestions (if applicable)
-4. Save documentation to workspace artifacts
-5. Present documentation for review
+1. Load `frontend-doc-generation` skill
+2. Execute skill to generate documentation
 
 ## Output Format
 
