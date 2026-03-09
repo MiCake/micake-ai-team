@@ -17,6 +17,7 @@ This adapter enables the Developer agent to work within GitHub Copilot's environ
 - Type `#implement` to implement a feature
 - Type `#fix` to fix a bug
 - Type `#refactor` to refactor code
+- Type `#frontend-doc` to generate frontend API documentation
 - Use inline chat for quick code suggestions
 
 ### Best Practices for Code Generation
@@ -41,10 +42,12 @@ This adapter enables the Developer agent to work within GitHub Copilot's environ
 - `#implement` - Implement feature based on design
 - `#fix` - Fix a bug or issue
 - `#refactor` - Refactor existing code
+- `#frontend-doc` - Generate frontend API documentation
 
 ### Output Location
 - Implementation: Project source files
 - Artifacts: `workspace/artifacts/{change-id}/implementation/`
+- Frontend docs: `workspace/artifacts/{change-id}/frontend-api-doc.md`
 
 ### Code Standards
 Follow principles from:

@@ -19,6 +19,7 @@ This project uses a multi-agent AI development framework for structured software
 | `#design` | Architect | Create architecture |
 | `#implement` | Developer | Implement code |
 | `#fix` | Developer | Fix bugs |
+| `#frontend-doc` | Developer | Generate frontend API documentation |
 | `#review` | Reviewer | Code review |
 | `#test` | Tester | Generate tests |
 | `#status` | Conductor | Show progress |

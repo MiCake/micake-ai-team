@@ -15,7 +15,7 @@ Multi-agent collaboration framework for software development.
  Analyst     Architect    Developer     Reviewer    Tester
 ```
 
-## Core Commands (14 total)
+## Core Commands (15 total)
 
 | Category | Command | Purpose |
 |----------|---------|--------|
@@ -31,6 +31,7 @@ Multi-agent collaboration framework for software development.
 | **Development** | `#implement` | Implement feature |
 | | `#fix` | Fix bug (smart context) |
 | | `#refactor` | Refactor code |
+| | `#frontend-doc` | Generate frontend API documentation |
 | **Review** | `#review` | Code review |
 | **Test** | `#test` | Generate tests |
 

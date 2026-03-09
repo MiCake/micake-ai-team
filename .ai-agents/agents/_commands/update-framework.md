@@ -9,7 +9,7 @@
 Check for and install framework updates from GitHub.
 
 ### Repository
-https://github.com/uoyoCsharp/My-Virtual-TechTeam
+https://github.com/MiCake/micake-ai-team
 
 ### Variants
 
@@ -43,7 +43,7 @@ Check for platform-specific indicators:
 
 Fetch `registry.yaml` from GitHub and extract the `version` field:
 ```
-https://raw.githubusercontent.com/uoyoCsharp/My-Virtual-TechTeam/main/.ai-agents/registry.yaml
+https://raw.githubusercontent.com/MiCake/micake-ai-team/main/.ai-agents/registry.yaml
 ```
 
 Compare with local version from `.ai-agents/registry.yaml`:

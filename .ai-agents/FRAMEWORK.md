@@ -43,7 +43,7 @@ When a `#command` is detected:
 
 ## Quick Reference
 
-### Core Commands (14 total)
+### Core Commands (15 total)
 
 | Category | Command | Purpose |
 |----------|---------|---------|
@@ -59,6 +59,7 @@ When a `#command` is detected:
 | **Development** | `#implement` | Implement feature |
 | | `#fix` | Fix bug (smart context) |
 | | `#refactor` | Refactor code |
+| | `#frontend-doc` | Generate frontend API documentation |
 | **Review** | `#review` | Code review |
 | **Test** | `#test` | Generate tests |
 

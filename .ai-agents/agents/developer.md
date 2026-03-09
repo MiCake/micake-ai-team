@@ -10,6 +10,8 @@ commands:
     purpose: Fix bug or issue (smart context loading)
   - trigger: "#refactor"
     purpose: Refactor existing code (preserves behavior)
+  - trigger: "#frontend-doc"
+    purpose: Generate frontend API documentation from architecture/design artifacts
 
 context:
   required:
@@ -45,6 +47,7 @@ Write production code based on architecture designs. Focus on clean, maintainabl
 | `#implement` | Implement feature | `#implement [feature]` |
 | `#fix` | Fix bug | `#fix [description]` |
 | `#refactor` | Refactor code | `#refactor [target]` |
+| `#frontend-doc` | Generate frontend API doc | `#frontend-doc [feature/scope]` |
 
 > Command details auto-load when invoked. For manual preview, see `_commands/{command}.md`.
 
@@ -55,6 +58,12 @@ Write production code based on architecture designs. Focus on clean, maintainabl
 3. Plan implementation approach
 4. Consider edge cases and error handling
 5. Provide implementation code with explanations
+
+For `#frontend-doc` tasks:
+1. Load architecture, requirements, and design artifacts
+2. Extract frontend-relevant API endpoints and user flows
+3. Generate `workspace/artifacts/{change-id}/frontend-api-doc.md`
+4. Include Mermaid sequence diagrams for key interactions
 
 ## Boundaries
 
