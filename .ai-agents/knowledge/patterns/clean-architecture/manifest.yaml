@@ -1,33 +1,36 @@
-# Unified Manifest v2.0
-# Clean Architecture Pattern Pack
-
-# --- Identity ---
 id: "clean-architecture"
 type: "pattern"
 name: "Clean Architecture"
 version: "1.0"
 description: "Robert C. Martin's Clean Architecture for testable, maintainable systems"
 
-# --- Loading Behavior ---
+token_estimate:
+  total: 800
+  breakdown:
+    - file: review-checklist.md
+      tokens: 800
+      load_priority: 1
+      summary: "Clean Architecture compliance checklist"
+
+loading_strategy:
+  level_1_manifest_only:
+    tokens: 150
+    use_case: "Check available Clean Architecture patterns"
+
+  level_2_full:
+    tokens: 800
+    use_case: "Complete Clean Architecture review guidance"
+
 loading:
   priority: 10
   auto_load: false
 
-# --- Files Configuration ---
 files:
-  - path: "overview.md"
-    description: "Overview of Clean Architecture layers and dependency rules"
-    required: true
-
-  - path: "layer-rules.md"
-    description: "Detailed rules for each layer"
-    required: true
-
   - path: "review-checklist.md"
     description: "Checklist for reviewing code against Clean Architecture"
-    required: false
+    required: true
+    tokens: 800
 
-# --- Attributes ---
 attributes:
   terminology:
     entity: "Entity"
@@ -52,13 +55,12 @@ attributes:
     - "UI is a detail"
     - "Testable without external dependencies"
 
-# --- Scenarios ---
 scenarios:
   - name: "Design application architecture"
     files: ["overview.md"]
-    
+
   - name: "Code review"
     files: ["review-checklist.md"]
-    
+
   - name: "Understand layer separation"
     files: ["overview.md"]

@@ -1,6 +1,6 @@
 ---
 id: context-loader
-name: Smart Context Loader
+name: Context Loader
 type: system
 invoked_by: all_agents
 auto_invoke: on_activation
@@ -8,115 +8,86 @@ auto_invoke: on_activation
 
 # Context Loader
 
-Smart context loader that auto-executes on agent activation, loading required context based on the agent's context_contract.
+Defines what each agent should load on activation. Agents read this file to determine which workspace and knowledge files to load based on the current command.
 
-## Loading Strategy
+---
 
-### Priority Loading
+## Basic Loading (All Commands)
 
-1. Read `registry.yaml` for global index
-2. Read `workspace/state/session.yaml` for current state
-3. Load required resources based on agent's `context_contract.required`
+Always load these two files first:
 
-### Lazy Loading
+| File | Purpose |
+|------|---------|
+| `workspace/session.yaml` | Current session state, active change, progress |
+| `workspace/project-context.yaml` | Project info, tech stack, architecture, requirements |
 
-1. Parse `context_contract.conditional` conditions
-2. Load on-demand when actually needed
-3. Cache loaded resources to avoid redundant reads
+---
 
-### Context Summary
+## Extended Loading by Command Type
 
-Generate summaries for resources exceeding threshold:
-- Threshold: 2000 tokens
-- Strategy: Preserve structure + key information + examples
+After basic loading, load additional files based on the command:
 
-## Loading Order
+| Command | Additional Files |
+|---------|-----------------|
+| `#init` | Scan project root for config files |
+| `#analyze` | `workspace/requirements/` (if exists) |
+| `#design` | `knowledge/patterns/{active}/`, `knowledge/core/` |
+| `#implement` | `knowledge/patterns/{active}/`, `knowledge/principle/`, `workspace/artifacts/{active-change}/` |
+| `#fix` | Related source files only |
+| `#refactor` | `knowledge/patterns/{active}/`, related source files |
+| `#review` | `knowledge/core/review-principles.md`, `knowledge/principle/`, `knowledge/patterns/{active}/review-checklist.md` |
+| `#test` | `knowledge/core/review-principles.md`, `knowledge/patterns/{active}/`, implementation files |
+| `#status` | None (basic loading is sufficient) |
+| `#config` | `config.yaml` |
 
-```mermaid
-flowchart LR
-    A[Registry] --> B[Session State]
-    B --> C[Required Context]
-    C --> D[Conditional Context]
-    D --> E[Agent Ready]
-```
+> `{active}` refers to `pattern.active` in `config.yaml`.
 
-## Knowledge Loading Levels
+---
 
-### Level 1: Manifest Only
-- Load only `manifest.yaml`
-- Get structure and summary information
-- Token cost: ~200
+## Empty Content Detection
 
-### Level 2: Targeted Loading
-- Select relevant parts from `semantic_index` based on current task
-- Load only matching file fragments
-- Token cost: ~500-1500
+When loading required files, check for empty/default content and warn the user:
 
-### Level 3: Full Loading
-- Load complete knowledge pack
-- Use only when explicitly needed
-- Token cost: ~3000-5000
+| File | Empty Indicator | Warning |
+|------|----------------|---------|
+| `workspace/session.yaml` | `session.initialized_at: ""` | "Session not initialized. Run `#init` first." |
+| `workspace/project-context.yaml` | `project.name: ""` | "Project not initialized. Run `#init` first." |
+| `workspace/project-context.yaml` | No features in requirements | "No requirements found. Run `#analyze` first." |
+| `workspace/project-context.yaml` | No modules in architecture | "No architecture defined. Run `#design` first." |
 
-## Loading Decision Tree
+When an empty indicator is found on a required file:
+1. Output warning message
+2. Suggest the appropriate initialization command
+3. Do NOT proceed until prerequisites are met
 
-```mermaid
-flowchart TD
-    A[Need knowledge] --> B{Task type clear?}
-    B -->|Yes| C[Query semantic_index]
-    B -->|No| D[Load manifest for overview]
-    C --> E{Match found?}
-    E -->|Yes| F[Level 2: Load relevant fragments]
-    E -->|No| G[Level 3: Full load]
-    D --> H[User selection or inference]
-    H --> C
-```
+---
 
-## Cache Management
+## Code Mapping
 
-Loaded knowledge is cached to `workspace/state/knowledge-cache.yaml`:
+Use `workspace/project-context.yaml` architecture section for efficient file location:
 
 ```yaml
-cache:
-  session_id: "{session-uuid}"
-  created_at: "2026-02-16T10:00:00Z"
-  
-loaded:
-  - pack: core
-    level: 3
-    files_loaded: [software-principles.md]
-    
-  - pack: patterns/ddd
-    level: 2
-    fragments_loaded:
-      - file: tactical-patterns.md
-        sections: [entity, aggregate]
+# workspace/project-context.yaml → architecture.modules
+modules:
+  - name: domain
+    path: src/domain/
+    entities: [User, Order]
 ```
 
-## Execution Steps
+When the user mentions an entity or module name, check `project-context.yaml` to locate related files and load only those — skip unrelated modules.
 
-When agent activates:
+---
 
-1. **Check cache**: Read `knowledge-cache.yaml`
-2. **Identify requirements**: Parse agent's `context_contract`
-3. **Calculate diff**: Determine resources that need loading
-4. **Execute loading**: Load resources by priority
-5. **Update cache**: Record loaded content
-6. **Report status**: Notify LLM of loaded context
+## Topic-Based Loading
 
-## Output
+Use `workspace/project-context.yaml` decisions section for topic-based lookups:
 
-After loading completes, report to LLM:
-
-```markdown
-## Context Loaded
-
-### Required
-- [x] knowledge/core/ (Level 3)
-- [x] workspace/state/session.yaml
-
-### Conditional (loaded)
-- [x] knowledge/patterns/ddd/ (Level 2: entity, aggregate)
-
-### Conditional (pending)
-- [ ] knowledge/principle/coding-standards.md (Load condition: project initialized)
+```yaml
+# workspace/project-context.yaml → architecture.decisions
+decisions:
+  - id: auth
+    topic: authentication
+    related_files: [src/auth/]
 ```
+
+Extract keywords from the user's request, match against decisions/modules, and load only matched sections.
