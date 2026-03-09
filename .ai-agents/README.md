@@ -1,193 +1,133 @@
-# AI Agent Framework (v2.0)
+# AI Agent Framework 
 
 Multi-agent collaboration framework for software development.
 
 ## Quick Start
 
-1. **Resource Discovery**: Read `registry.yaml` for quick access to all resources
-2. **Agent Activation**: Each agent's `context_contract` defines required context
-3. **Workflow**: Use `#start` to begin, `#status` to check progress
+1. **Framework Entry**: Read `FRAMEWORK.md` for core instructions
+2. **Resource Registry**: Read `registry.yaml` for agent/command mappings
+3. **Start**: Use `#init` to initialize, `#status` to check progress
+
+## Standard Workflow
+
+```
+#analyze --> #design --> #implement --> #review --> #test
+ Analyst     Architect    Developer     Reviewer    Tester
+```
+
+## Core Commands (14 total)
+
+| Category | Command | Purpose |
+|----------|---------|--------|
+| **Project** | `#init` | Initialize project |
+| | `#status` | Show workflow status |
+| | `#config` | Configure settings |
+| | `#sync-context` | Sync context with code |
+| | `#update-framework` | Update framework |
+| | `#cleanup` | Clean up workspace artifacts |
+| **Analysis** | `#analyze` | Analyze requirements |
+| | `#analyze-code` | Reverse-analyze code |
+| **Design** | `#design` | Create architecture design |
+| **Development** | `#implement` | Implement feature |
+| | `#fix` | Fix bug (smart context) |
+| | `#refactor` | Refactor code |
+| **Review** | `#review` | Code review |
+| **Test** | `#test` | Generate tests |
 
 ## Directory Structure
 
-```
-.ai-agents/
-├── registry.yaml         # Unified resource index (preferred entry point)
-├── config.yaml           # System configuration
-├── agents/               # Agent definitions
-│   ├── _index.yaml       # Directory index
-│   ├── _base.md          # Shared behavior rules
-│   ├── {agent}.yaml      # Declaration (role, skills, context_contract)
-│   └── {agent}.prompt.md # Behavior prompt
-├── skills/               # Modular capabilities
-│   ├── _index.yaml       # Directory index
-│   ├── _system/          # System skills (auto-invoked)
-│   │   ├── context-loader.md    # Smart context loading
-│   │   └── archive-manager.md   # Archive management
-│   └── {skill}.md        # Skill definition
-├── workflows/            # Workflow definitions
-│   ├── _index.yaml       # Directory index
-│   └── {workflow}.yaml   # Workflow state machine
-├── knowledge/            # Domain knowledge
-│   ├── _index.yaml       # Directory index
-│   ├── core/             # Core principles (always loaded)
-│   ├── patterns/         # Architecture patterns (on-demand)
-│   │   ├── ddd/          # Domain-Driven Design
-│   │   └── clean-architecture/  # Clean Architecture
-│   ├── principle/        # Project coding standards (generated)
-│   └── project/          # Project-specific knowledge
-└── workspace/            # Project workspace
-    ├── _index.yaml       # Directory index
-    ├── state/            # Hot data: current session
-    │   ├── session.yaml       # Session state
-    │   ├── active-change.yaml # Current change
-    │   └── knowledge-cache.yaml # Knowledge cache
-    ├── context/          # Warm data: project context
-    │   ├── project.yaml       # Project info
-    │   ├── architecture.yaml  # Architecture decisions
-    │   ├── requirements.yaml  # Requirements summary
-    │   └── decisions.yaml     # Key decisions
-    ├── history/          # Cold data: historical archive
-    │   ├── phases/       # Phase history
-    │   └── changes/      # Change history
-    ├── requirements/     # Requirements documents
-    └── artifacts/        # Work artifacts (grouped by change)
-```
+| Directory | Purpose |
+|-----------|---------|
+| `FRAMEWORK.md` | Framework entry (core instructions for LLM) |
+| `registry.yaml` | Unified resource index |
+| `config.yaml` | User configuration |
+| `agents/_shared.md` | Shared behavior rules for all agents |
+| `agents/{agent}.md` | Agent core file (role + behavioral rules) |
+| `agents/_commands/{command}.md` | Command-specific execution file |
+| `skills/` | Modular capabilities (on-demand) |
+| `skills/_system/` | System skills (context-loader) |
+| `workflows/` | Workflow state machine definitions |
+| `knowledge/` | Domain knowledge |
+| `knowledge/core/` | Core principles (always loaded) |
+| `knowledge/patterns/` | Architecture patterns (on-demand) |
+| `knowledge/principle/` | Project coding standards (generated) |
+| `knowledge/project/` | Project-specific knowledge |
+| `workspace/` | Project workspace |
+| `workspace/session.yaml` | Current session state |
+| `workspace/project-context.yaml` | Unified project context (requirements + architecture + decisions) |
+| `workspace/artifacts/` | Work artifacts (grouped by change) |
+| `workspace/requirements/` | Requirements input documents |
+| `workspace/history/` | Historical archive |
 
-## Key Concepts (v2.0)
+## Key Concepts
 
-### Unified Resource Registry
+### Agent Activation
 
-`registry.yaml` provides unified index for all resources:
-- `quick_index`: Quick index preferred for LLM access
-- `context_graph`: Context dependencies between Agents
-- `discovery_protocol`: Resource discovery protocol
-
-### Context Contract
-
-Each Agent defines its context contract in its yaml file:
+Each agent defines its context in its `.md` file's YAML frontmatter:
 ```yaml
-context_contract:
-  required:      # 必须加载
-  conditional:   # 条件加载
-  outputs:       # 输出目标
+context:
+  required:      # Must load
+  optional:      # Load when relevant
 ```
+
+When a `#command` is detected, the framework:
+1. Looks up the agent in `registry.yaml`
+2. Loads `agents/{agent}.md` (agent core)
+3. Loads `agents/_commands/{command}.md` (command details)
 
 ### Data Tiering
 
-Workspace uses tiered storage strategy:
-- **Hot (state/)**: Current session, <50KB
-- **Warm (context/)**: Project context, <100KB  
-- **Cold (history/)**: Historical archive, read index only
+Workspace uses a simplified two-file structure:
+- **session.yaml**: Current session state and workflow progress
+- **project-context.yaml**: Unified project info, requirements, architecture, and decisions
+- **artifacts/**: Work outputs grouped by change-id
+- **history/**: Historical archive
 
-### Knowledge Loading Levels
+### Index Convention
 
-| Level | When to Use | Tokens |
-|-------|-------------|--------|
-| 1 | Get overview | ~200 |
-| 2 | Specific tasks (via semantic_index) | ~500-1500 |
-| 3 | Full knowledge needed | ~3000-5000 |
+| File | Purpose | Used In |
+|------|---------|--------|
+| `registry.yaml` | Global resource index | Framework root |
+| `manifest.yaml` | Knowledge pack metadata | knowledge/*/ |
 
 ## Agents
 
-Each agent has two files plus a common base:
+Each agent has a single `.md` file with:
 
-1. **`_base.md`**: Common activation steps (v2.0) and behavior rules
-2. **`{agent}.yaml`**: Declarative definition
-   - ID, name, responsibilities
-   - Boundaries (what the agent does NOT do)
-   - Skills it can use
-   - Commands it responds to
-   - **context_contract**: Required/conditional context
+1. **YAML frontmatter**: id, name, commands, context requirements
+2. **Markdown body**: Core role, behavioral rules, decision framework
 
-3. **`{agent}.prompt.md`**: Behavior prompt
-   - Persona and communication style
-   - Activation steps (referencing _base.md)
-   - Command implementations
-   - Boundary enforcement with examples
-   - Output formats
+Common rules are defined in `agents/_shared.md`.
 
-## System Skills
-
-System skills are auto-invoked by the framework:
-
-- **context-loader**: Smart context loading on agent activation
-- **archive-manager**: History archiving and compression
-
-## Core Skills
+## Skills
 
 Skills are modular capabilities loaded on-demand:
 - `project-initialization.md` - Initialize project and analyze structure
+- `config-manager.md` - Interactive configuration management
 - `review-execution.md` - Execute review checklists
 - `test-generation.md` - Generate test cases
+- `framework-update.md` - Update framework from GitHub
 
 ## Workflows
 
 Workflows define phase transitions:
 
 - **requirement-to-code**: Full development cycle
-  - analyze → design → implement → review → test
+  - analyze --> design --> implement --> review --> test
 
-- **code-review**: Code quality review
-  - analyze → review → report
-
-## Dynamic Memory (v2.0)
-
-Memory is now split across multiple files in `workspace/`:
-
-### State (Hot Data)
-- `state/session.yaml`: Current session and workflow state
-- `state/active-change.yaml`: Current change in progress
-- `state/knowledge-cache.yaml`: Loaded knowledge cache
-
-### Context (Warm Data)
-- `context/project.yaml`: Project information
-- `context/architecture.yaml`: Architecture decisions
-- `context/requirements.yaml`: Requirements summary
-- `context/decisions.yaml`: Key decisions log
-
-### History (Cold Data)
-- `history/phases/`: Phase execution history
-- `history/changes/`: Completed changes archive
-
-**Rules**:
-- Confirm with user before saving
-- Keep information concise
-- Hot data: <50KB, Warm data: <100KB
-- Archive cold data after 7-30 days
-
-## Usage
-
-1. Start with `#init` to initialize project analysis
-2. Use `#start` to begin a workflow
-3. Follow prompts and confirm transitions
-4. Use specific commands (`#analyze`, `#design`, etc.) to invoke agents
-5. Check `#status` to see current progress
-6. Use `#pattern {name}` to switch architecture patterns
-7. Use `#recover` if workflow enters error state
-8. Use `#debug on` for verbose troubleshooting
+- **code-review**: Internal execution flow of the `#review` command
+  - analyze --> review --> report
 
 ## Extending
 
 ### Add Custom Agent
 
-1. Copy templates from `agents/_templates/`
-2. Create `agents/{name}.yaml` with definition
-3. Create `agents/{name}.prompt.md` with behavior
-4. Register in `config.yaml` under `agents`
-5. Create `.github/agents/{name}.md` for GitHub Copilot
-
-See `agents/_templates/README.md` for detailed instructions.
-
-### Add Custom Skill
-
-1. Create `skills/{name}.md` with skill definition
-2. Register in `config.yaml` under `skills.core` or `skills.custom`
-3. Add platform adapter in `.github/skills/{name}/SKILL.md`
+1. Create `agents/{name}.md` with YAML frontmatter and behavior rules
+2. Register in `registry.yaml` under `agents` and `commands`
 
 ### Add Architecture Pattern
 
 1. Create `knowledge/patterns/{pattern}/` directory
 2. Add `manifest.yaml` with pattern metadata
 3. Add pattern documentation (overview.md, review-checklist.md)
-4. Register in `config.yaml` under `pattern.available`
+4. Update `knowledge/patterns/manifest.yaml` under `available`
