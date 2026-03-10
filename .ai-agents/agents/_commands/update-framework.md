@@ -32,12 +32,14 @@ https://github.com/uoyoCsharp/My-Virtual-TechTeam
 
 ### Step 1: Detect Platform
 
-Check for platform-specific indicators:
+Check for platform-specific indicators. Note that a project might use **multiple platforms simultaneously** (e.g., both Claude Code and GitHub Copilot). You MUST detect and prepare to update ALL platforms present.
 
 | Platform | Indicators |
 |----------|------------|
 | Claude Code | `CLAUDE.md` exists, `.claude/` directory |
 | GitHub Copilot | `.github/copilot-instructions.md`, `.github/agents/` directory |
+
+*Crucial: If both sets of indicators are found, you must update the adapter files for BOTH platforms.*
 
 ### Step 2: Fetch Remote Version
 
@@ -64,7 +66,7 @@ Compare with local version from `.ai-agents/registry.yaml`:
 | Category | Files |
 |----------|-------|
 | Core Framework | .ai-agents/agents/*, .ai-agents/skills/* |
-| Platform Adapter | .claude/ or .github/agents/ (based on detected platform) |
+| Platform Adapter | .claude/ and .github/agents/ (update ALL detected platforms) |
 
 ### What Will Be Preserved
 - workspace/ (your working state)
@@ -80,7 +82,7 @@ Proceed with update? [Y/n]
 1. Create timestamped backup at `.ai-agents/.backup/{timestamp}/`
 2. Download latest files from GitHub
 3. Apply updates, preserving protected directories
-4. Update platform-specific adapter files if needed
+4. Update platform-specific adapter files for ALL detected platforms (e.g., both `.claude/` and `.github/` if present)
 5. Verify file integrity and report success/failure
 
 ---
@@ -102,7 +104,7 @@ User: #update-framework
 | Category | Files |
 |----------|-------|
 | Core Framework | .ai-agents/agents/*, .ai-agents/skills/* |
-| Platform Adapter | .github/agents/ (GitHub Copilot detected) |
+| Platform Adapter | .claude/ and .github/agents/ (Dual platforms detected) |
 
 ### What Will Be Preserved
 - workspace/ (your working state)
